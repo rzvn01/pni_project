@@ -30,7 +30,7 @@ class GUI (customtkinter.CTk):
         self.W = None  # W parameter (number of blocks)
         self.image_refs = []  # Keep references to images displayed on the canvas
         self.k_parameters_list = [str(round(x, 1)) for x in range(20, 90, 5)]  # K options
-        self.w_parameters_list = [str(round(x, 1)) for x in range(20, 90, 5)]  # W options
+        self.w_parameters_list = [str(round(x, 1)) for x in range(20, 50, 5)]  # W options
 
         # Set up the GUI window and layout
         self.setup_window()
@@ -64,14 +64,14 @@ class GUI (customtkinter.CTk):
 
     def add_elements_bottom_frame(self):
         """
-        Adds controls (buttons, parameter selectors) to the bottom frame with customized colors.
+        Adds controls (buttons, parameter selectors) to the bottom frame with jade and pale green colors.
         """
         # Appearance mode options
         appearance_frame = customtkinter.CTkFrame(self.frame_bottom, fg_color="transparent")
-        appearance_frame.grid(row=0, column=0, padx=(20, 10), pady=20, sticky="w")
+        appearance_frame.grid(row=0, column=0, padx=(20, 10), pady=10, sticky="w")
 
         self.appearance_mode_label = customtkinter.CTkLabel(
-            appearance_frame, text="Appearance Mode:", anchor="w", text_color="cyan"
+            appearance_frame, text="Appearance Mode:", anchor="w", text_color="#32a852"  # Jade green text
         )
         self.appearance_mode_label.grid(row=0, column=0, padx=(0, 5), sticky="w")
 
@@ -79,24 +79,24 @@ class GUI (customtkinter.CTk):
             appearance_frame,
             values=["Dark", "Light"],
             command=self.change_appearance_mode,
-            fg_color="blue",  # Button color
-            button_color="cyan",  # Dropdown button color
-            button_hover_color="darkblue",  # Dropdown hover color
+            fg_color="#85c88a",  # Pale green button color
+            button_color="#5ba672",  # Slightly darker green for dropdown button
+            button_hover_color="#4d8c60",  # Darker hover color
             text_color="white"  # Text color
         )
         self.appearance_mode_option_menu.grid(row=0, column=1, padx=(5, 0), sticky="w")
 
         # File selection (Choose Sketch Image button and path entry)
         sketch_frame = customtkinter.CTkFrame(self.frame_bottom, fg_color="transparent")
-        sketch_frame.grid(row=0, column=1, padx=(10, 10), pady=20, sticky="w")
+        sketch_frame.grid(row=0, column=1, padx=(10, 10), pady=10, sticky="w")
 
         self.choose_button = customtkinter.CTkButton(
             sketch_frame,
             text="Choose Sketch Image",
             command=self.choose_sketch_image,
-            fg_color="green",  # Button color
-            hover_color="darkgreen",  # Hover color
-            text_color="white"  # Text color
+            fg_color="#5ba672",  # Jade green button
+            hover_color="#4d8c60",  # Hover color
+            text_color="white"  # White text
         )
         self.choose_button.grid(row=0, column=0, padx=(0, 5), sticky="w")
 
@@ -104,22 +104,22 @@ class GUI (customtkinter.CTk):
             sketch_frame,
             width=400,
             placeholder_text="Sketch Path",
-            fg_color="lightgray",  # Entry background
-            text_color="black"  # Text color
+            fg_color="#d9ead3",  # Pale green background for the entry
+            text_color="black"  # Black text for contrast
         )
         self.path_entry.grid(row=0, column=1, padx=(5, 0), sticky="w")
 
         # Action buttons (Go and Reset)
         action_frame = customtkinter.CTkFrame(self.frame_bottom, fg_color="transparent")
-        action_frame.grid(row=0, column=2, padx=(10, 20), pady=20, sticky="e")
+        action_frame.grid(row=0, column=2, padx=(10, 20), pady=10, sticky="e")
 
         self.go_button = customtkinter.CTkButton(
             action_frame,
             text="Go",
             command=self.start_similarity_search,
-            fg_color="blue",  # Button color
-            hover_color="darkblue",  # Hover color
-            text_color="white"  # Text color
+            fg_color="#4d8c60",  # Dark jade green
+            hover_color="#376945",  # Darker hover green
+            text_color="white"  # White text
         )
         self.go_button.grid(row=0, column=0, padx=(0, 5), sticky="e")
         self.disable_button(self.go_button)  # Initially disabled
@@ -128,23 +128,23 @@ class GUI (customtkinter.CTk):
             action_frame,
             text="Reset",
             command=self.reset_canvas_and_entry,
-            fg_color="red",  # Button color
-            hover_color="darkred",  # Hover color
-            text_color="white"  # Text color
+            fg_color="#85c88a",  # Pale green button
+            hover_color="#5ba672",  # Jade hover
+            text_color="white"  # White text
         )
-        self.reset_button.grid(row=0, column=1, sticky="e")
+        self.reset_button.grid(row=0, column=1, padx=(10, 0), pady=10, sticky="e")
 
         # Parameters row (Auto Select, K, and W options)
         parameters_frame = customtkinter.CTkFrame(self.frame_bottom, fg_color="transparent")
-        parameters_frame.grid(row=1, column=0, columnspan=3, padx=(20, 20), pady=(20, 0), sticky="w")
+        parameters_frame.grid(row=1, column=0, columnspan=3, padx=(20, 20), pady=(10, 0), sticky="w")
 
         self.auto_select = customtkinter.CTkCheckBox(
             parameters_frame,
             text="Auto Select",
             command=self.set_auto_parameters,
-            fg_color="purple",  # Check box color
-            hover_color="violet",  # Hover color
-            text_color="white"  # Text color
+            fg_color="#5ba672",  # Checkbox jade green
+            hover_color="#4d8c60",  # Hover green
+            text_color="white"  # White text
         )
         self.auto_select.grid(row=0, column=0, padx=(0, 10), pady=(0, 0), sticky="w")
 
@@ -153,7 +153,7 @@ class GUI (customtkinter.CTk):
         k_frame.grid(row=0, column=1, padx=(0, 20), pady=(0, 0), sticky="w")
 
         self.k_parameters_label = customtkinter.CTkLabel(
-            k_frame, text="K parameter", text_color="orange"
+            k_frame, text="K parameter", text_color="#4d8c60"  # Jade green text
         )
         self.k_parameters_label.grid(row=0, column=0, padx=(0, 5), sticky="e")
 
@@ -161,10 +161,10 @@ class GUI (customtkinter.CTk):
             k_frame,
             values=self.k_parameters_list,
             width=80,
-            fg_color="gray",  # Background color
-            button_color="orange",  # Dropdown button color
-            button_hover_color="darkorange",  # Hover color
-            text_color="black"  # Text color
+            fg_color="#85c88a",  # Pale green combo box
+            button_color="#5ba672",  # Button jade green
+            button_hover_color="#4d8c60",  # Hover darker green
+            text_color="black"  # Black text for contrast
         )
         self.k_parameters.grid(row=0, column=1, padx=(5, 0), sticky="w")
 
@@ -173,7 +173,7 @@ class GUI (customtkinter.CTk):
         w_frame.grid(row=0, column=2, padx=(0, 20), pady=(0, 0), sticky="w")
 
         self.w_parameters_label = customtkinter.CTkLabel(
-            w_frame, text="W parameter", text_color="orange"
+            w_frame, text="W parameter", text_color="#4d8c60"  # Jade green text
         )
         self.w_parameters_label.grid(row=0, column=0, padx=(0, 5), sticky="e")
 
@@ -181,10 +181,10 @@ class GUI (customtkinter.CTk):
             w_frame,
             values=self.w_parameters_list,
             width=80,
-            fg_color="gray",  # Background color
-            button_color="orange",  # Dropdown button color
-            button_hover_color="darkorange",  # Hover color
-            text_color="black"  # Text color
+            fg_color="#85c88a",  # Pale green combo box
+            button_color="#5ba672",  # Button jade green
+            button_hover_color="#4d8c60",  # Hover darker green
+            text_color="black"  # Black text for contrast
         )
         self.w_parameters.grid(row=0, column=1, padx=(5, 0), sticky="w")
 
@@ -414,6 +414,7 @@ class GUI (customtkinter.CTk):
         """
         Resets the canvas, clears the image references, and resets the file path entry.
         """
+        self.remove_loading_circle()
         self.canvas.delete("all")  # Clear all drawings and images on the canvas
         self.image_refs.clear()  # Clear stored image references
 
@@ -423,6 +424,7 @@ class GUI (customtkinter.CTk):
 
         # Disable the "Go" button to prevent accidental actions
         self.disable_button(self.go_button)
+
 
     @staticmethod
     def composite_images(background_path, overlay_path, rank=1, output_path="output.png"):
